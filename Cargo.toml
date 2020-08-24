@@ -1,0 +1,12 @@
+[package]
+authors     = ["Jerónimo Sánchez <jsg568@inlumine.ual.es>"]
+description = "Perform operations regarding mangled ARM cores when using OpenMPI."
+edition     = "2018"
+name        = "dmgler"
+version     = "1.0.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap      = "2.33"
+structopt = "0.3"

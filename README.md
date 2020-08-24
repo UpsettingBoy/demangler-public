@@ -12,5 +12,18 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 
-# demangler
+# dmgler
 This is the demangling tool to generate correctly mapped mpirun lines for OpenMPI.
+
+## Installation
++ Download the binary for the target system form the releases section or [build](#Build) it yourself.
+
+## Usage
+![Usage](img/usage.png)
+
+Help can also be used on the subcommands.
+
+## Build
++ Latest version of [Rust](https://www.rust-lang.org/tools/install) must be installed in the system.
++ Execute ``cargo build --release``.
++ Binary will be under ``/target/release/`` with the name **dmgler** and the correct executable extension for the system.
