@@ -51,6 +51,8 @@ enum CliCommand {
     Demangle(CliDemangle),
     /// Display a set of demangled threads that satisfy certain condition(s).
     Get(CliGet),
+    /// Reverse demangle. From a set of demangled Intel-styled threads, return the threads in which the program will be finally executed.
+    Mangle(CliDemangle),
 }
 
 #[derive(StructOpt)]
@@ -75,6 +77,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     match args.cmd {
         CliCommand::Demangle(dmg) => demangle_cmd(&args.smt, &args.program, dmg)?,
         CliCommand::Get(get) => get_cmd(&args.smt, &args.program, get)?,
+        CliCommand::Mangle(mgl) => mangle_cmd(&args.smt, &args.program, mgl)?,
     }
 
     Ok(())
@@ -85,6 +88,19 @@ fn demangle_cmd(smt: &smt::SMT, program: &str, dmg: CliDemangle) -> Result<(), B
 
     for th in &dmg.threads {
         output.push(ompi::demangle(*th, smt)?);
+    }
+
+    output.sort();
+    ompi::show_cmd(&output, program);
+
+    Ok(())
+}
+
+fn mangle_cmd(smt: &smt::SMT, program: &str, dmg: CliDemangle) -> Result<(), Box<dyn Error>> {
+    let mut output = Vec::with_capacity(dmg.threads.len());
+
+    for th in &dmg.threads {
+        output.push(ompi::mangle(*th, smt));
     }
 
     output.sort();
